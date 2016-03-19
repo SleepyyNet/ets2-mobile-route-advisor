@@ -208,9 +208,9 @@ var g_cities_json = [
     "z": "35291"
   },
   {
-    "gameName": "bor",
-    "realName": "Bor",
-    "country": "czech",
+    "gameName": "borde",
+    "realName": "Bordeaux",
+    "country": "france",
     "x": "-47905.3",
     "y": "62",
     "z": "27492.5"
