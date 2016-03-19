@@ -231,8 +231,9 @@ function getTextFeatures() {
         var fill = new ol.style.Fill();
         fill.setColor('#fff');
         var stroke = new ol.style.Stroke();
-        stroke.setColor('#fff');
+        stroke.setColor('#000');
         stroke.setWidth(1);
+        var scale = 3;
         var textStyle = new ol.style.Style({
             text: new ol.style.Text({
                 text: cityName,
@@ -240,7 +241,8 @@ function getTextFeatures() {
                 offsetY: 0,
                 rotation: 0,
                 fill: fill,
-                stroke: stroke
+                stroke: stroke,
+                scale: scale
             })
         });
         feature.setGeometry(new ol.geom.Point(map_coords));
