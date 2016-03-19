@@ -142,7 +142,7 @@ function buildMap(target_element_id){
             extent: [0, 0, MAX_X, MAX_Y],
             //center: ol.proj.transform([37.41, 8.82], 'EPSG:4326', 'EPSG:3857'),
             center: [MAX_X/2, MAX_Y/2],
-            minZoom: 0,
+            minZoom: 4,
             maxZoom: 9,
             zoom: 7
         })
@@ -209,7 +209,7 @@ function getMapTilesLayer(projection, tileGrid) {
                 //     tileSize: [256, 256]
                 // }),
                 wrapX: false,
-                minZoom: 4,
+                minZoom: 6,
                 maxZoom: 7
             })
         });
