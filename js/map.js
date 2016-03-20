@@ -142,7 +142,7 @@ function buildMap(target_element_id){
             extent: [0, 0, MAX_X, MAX_Y],
             //center: ol.proj.transform([37.41, 8.82], 'EPSG:4326', 'EPSG:3857'),
             center: [MAX_X/2, MAX_Y/2],
-            minZoom: 4,
+            minZoom: 0,
             maxZoom: 9,
             zoom: 7
         })
@@ -209,7 +209,7 @@ function getMapTilesLayer(projection, tileGrid) {
                 //     tileSize: [256, 256]
                 // }),
                 wrapX: false,
-                minZoom: 6,
+                minZoom: 4,
                 maxZoom: 7
             })
         });
@@ -219,37 +219,33 @@ function getMapTilesLayer(projection, tileGrid) {
 }
 
 function getTextFeatures() {
-    var features = [];
-    $.each(g_cities_json, function() {
-        var cityName = this.realName;
-        console.log(cityName);
-        var map_coords = game_coord_to_pixels(this.x, this.z);
-        var feature = new ol.Feature({
-            name: name
-        });
-
-        var fill = new ol.style.Fill();
-        fill.setColor('#fff');
-        var stroke = new ol.style.Stroke();
-        stroke.setColor('#000');
-        stroke.setWidth(1);
-        var scale = 3;
-        var textStyle = new ol.style.Style({
+    var fill = new ol.style.Fill();
+    fill.setColor('#fff');
+    var stroke = new ol.style.Stroke();
+    stroke.setColor('#000');
+    stroke.setWidth(2);
+    var createTextStyle = function(resolution) {
+        var scale = Math.min(1, Math.max(0, 1.0 / Math.log2(resolution + 1) - 0.125));
+        // console.log(scale, resolution);
+        // console.log(this.get('realName'), this.get('country'));
+        return [new ol.style.Style({
             text: new ol.style.Text({
-                text: cityName,
-                offsetX: 0,
-                offsetY: 0,
-                rotation: 0,
+                text: this.get('realName'),
+                font: '32px "Helvetica Neue", "Helvetica", "Arial", sans-serif',
+                textAlign: 'center',
                 fill: fill,
                 stroke: stroke,
                 scale: scale
             })
-        });
+        })];
+    };
+    var features = g_cities_json.map(function(city) {
+        var map_coords = game_coord_to_pixels(city.x, city.z);
+        var feature = new ol.Feature(city);
         feature.setGeometry(new ol.geom.Point(map_coords));
-        feature.setStyle(textStyle);
-        features.push(feature);
+        feature.setStyle(createTextStyle);
+        return feature;
     });
-
     return features;
 }
 
