@@ -226,8 +226,6 @@ function getTextFeatures() {
     stroke.setWidth(2);
     var createTextStyle = function(resolution) {
         var scale = Math.min(1, Math.max(0, 1.0 / Math.log2(resolution + 1) - 0.125));
-        // console.log(scale, resolution);
-        // console.log(this.get('realName'), this.get('country'));
         return [new ol.style.Style({
             text: new ol.style.Text({
                 text: this.get('realName'),
